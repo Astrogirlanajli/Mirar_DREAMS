@@ -1,0 +1,53 @@
+# Default configuration file for PSFEx 3.17.1
+# Customized for DREAMS
+
+#-------------------------------- PSF model ----------------------------------
+ 
+BASIS_TYPE      PIXEL_AUTO      # Automatically select pixel basis for the PSF model
+BASIS_NUMBER    20              # Basis number or parameter; may adjust based on testing
+PSF_SAMPLING    1.0             # Maintain as 1.0 for regular sampling step in pixels
+PSF_ACCURACY    0.01            # Accuracy target for PSF pixel values; keep at 0.01
+PSF_SIZE        21, 21          # Image size of the PSF model; adjust if needed based on performance
+
+#------------------------- Point source measurements -------------------------
+ 
+CENTER_KEYS     X_IMAGE,Y_IMAGE  # Use these parameters for source centering
+PHOTFLUX_KEY    FLUX_APER(3)     # Use the third aperture for photometric normalization
+PHOTFLUXERR_KEY FLUXERR_APER(3)  # Photometric error from the third aperture
+
+#----------------------------- PSF variability -------------------------------
+ 
+PSFVAR_KEYS     X_IMAGE,Y_IMAGE   # Parameters for PSF variability; ensure they are consistent
+PSFVAR_GROUPS   1,1               # Group tags for context keys; retain as is
+PSFVAR_DEGREES  3                 # Polynomial degree for variability groups
+
+#----------------------------- Sample selection ------------------------------
+ 
+SAMPLE_AUTOSELECT  Y              # Enable automatic selection of FWHM
+SAMPLEVAR_TYPE     SEEING          # Type of variability; may consider NONE if no variability expected
+SAMPLE_FWHMRANGE   1.5, 14        # Allowed range for FWHM; adjust as necessary based on DREAMS observations
+SAMPLE_VARIABILITY 0.5             # Allowed FWHM variability; 0.5 is reasonable for typical conditions
+SAMPLE_MINSN       20              # Minimum signal-to-noise ratio for sources; retains the original value
+SAMPLE_MAXELLIP    0.5             # Maximum ellipticity for source selection; adjust based on expected object shapes
+ 
+#------------------------------- Check-plots ----------------------------------
+ 
+CHECKPLOT_DEV       PNG            # Output format for check plots; PNG is suitable for analysis
+CHECKPLOT_TYPE      NONE           # Change to desired check type if analysis on FWHM, ellipticity, etc., is needed
+CHECKPLOT_NAME      NONE           # Adjust if specific output filenames are required
+
+#------------------------------ Check-Images ---------------------------------
+ 
+CHECKIMAGE_TYPE CHI,PROTOTYPES,SAMPLES,RESIDUALS,SNAPSHOTS
+                                # Types of check images to generate
+CHECKIMAGE_NAME chi.fits, proto.fits, samp.fits, resi.fits, snap.fits
+                                # Filenames for check images; adjust paths if necessary
+CHECKIMAGE_CUBE Y                 # Enable cube output for check images
+
+#----------------------------- Miscellaneous ---------------------------------
+ 
+PSF_DIR                         # Directory for writing PSF files; set as needed
+VERBOSE_TYPE    NORMAL          # Set verbosity of output; NORMAL for standard details
+WRITE_XML       N               # Change to Y if XML output is needed
+XML_NAME        psfex.xml       # Name for XML output file; adjust if necessary
+NTHREADS        1               # Number of threads for processing; adjust based on available resources
